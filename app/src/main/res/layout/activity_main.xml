@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/baiduMapView"
+            android:layout_width="match_parent"
+            android:layout_height="279dp"
+            android:clickable="true" />
+
+        <Button
+            android:id="@+id/button_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forward" />
+
+        <Button
+            android:id="@+id/button_backward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backward" />
+
+        <Button
+            android:id="@+id/button_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left" />
+
+        <Button
+            android:id="@+id/button_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right" />
+
+        <Button
+            android:id="@+id/button_start_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start/Pause" />
+
+        <TextView
+            android:id="@+id/longitudeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude: " />
+
+        <TextView
+            android:id="@+id/latitudeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude: " />
+
+
+
+
+
+</LinearLayout>
+
+
