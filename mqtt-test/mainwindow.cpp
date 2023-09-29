@@ -140,6 +140,7 @@ void MainWindow::mqtt_mainwindow_change_sub_connect_text()
             ui->lineEdit_mqtt_sub_clientid->setEnabled(false);
             ui->lineEdit_mqtt_sub_host->setEnabled(false);
             ui->lineEdit_mqtt_sub_ip->setEnabled(false);
+            ui->pushButton_mqtt_sub_opensub->setEnabled(false);
             ui->lineEdit_mqtt_sub_topic->setEnabled(true);
             ui->comboBox_mqtt_sub_qos->setEnabled(true);
             ui->pushButton_mqtt_sub_subscribe->setEnabled(true);
@@ -155,6 +156,7 @@ void MainWindow::mqtt_mainwindow_change_sub_connect_text()
             ui->lineEdit_mqtt_sub_clientid->setEnabled(true);
             ui->lineEdit_mqtt_sub_host->setEnabled(true);
             ui->lineEdit_mqtt_sub_ip->setEnabled(true);
+            ui->pushButton_mqtt_sub_opensub->setEnabled(true);
             ui->lineEdit_mqtt_sub_topic->setEnabled(false);
             ui->comboBox_mqtt_sub_qos->setEnabled(false);
             ui->pushButton_mqtt_sub_subscribe->setEnabled(false);
