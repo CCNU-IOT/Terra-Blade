@@ -120,7 +120,40 @@ void mqtt_pub::mqtt_pub_thread_signal_send()
     {
         std::cout << "Failed to publish message, return code " << pub_rc << std::endl;
     }
-    mainwindow_tedit_mqtt_pub_text->insertPlainText(QString::fromStdString(pub_message + "\n"));//print
+    std::string pub_time = mqtt_pub_thread_pub_time();
+    mainwindow_tedit_mqtt_pub_text->insertPlainText(QString::fromStdString(pub_time + " " + pub_message + "\n"));//print
     pub_rc = MQTTClient_waitForCompletion(pub_client, token, pub_timeout);
     std::cout << "Message with delivery token " << token << " delivered." << std::endl;
+}
+std::string mqtt_pub::mqtt_pub_thread_pub_time()
+{
+    //get current time
+    std::chrono::time_point currentTime = std::chrono::system_clock::now();
+    //calculate ms
+    auto timestamp = std::chrono::time_point_cast<std::chrono::milliseconds>(currentTime);
+    auto ms = timestamp.time_since_epoch();
+    int milliseconds = ms.count() % 1000;
+    //Converting current time to tm structures
+    std::time_t time = std::chrono::system_clock::to_time_t(currentTime);
+    struct std::tm *tmStruct = std::localtime(&time);
+
+    //Extract time information
+    int year = tmStruct->tm_year + 1900; // year + 1900
+    int month = tmStruct->tm_mon + 1;    //month start from 0
+    int day = tmStruct->tm_mday;
+    int hour = tmStruct->tm_hour;
+    int minute = tmStruct->tm_min;
+    int second = tmStruct->tm_sec;
+
+    std::stringstream time_out;
+    time_out << std::setfill('0')
+             << std::setw(4) << year << "-"
+             << std::setw(2) << month << "-"
+             << std::setw(2) << day << "-"
+             << std::setw(2) << hour << ":"
+             << std::setw(2) << minute << ":"
+             << std::setw(2) << second << ":"
+             << std::setw(3) << milliseconds;
+
+    return time_out.str();
 }
