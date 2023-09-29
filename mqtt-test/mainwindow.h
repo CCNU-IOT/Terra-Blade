@@ -46,5 +46,7 @@ public slots:
     void mqtt_mainwindow_change_pub_publish_text();
     void mqtt_mainwindow_pub_textedit_change_text();//textEdit slot
     void mqtt_mainwindow_sub_textedit_change_text();//textEdit slot
+    void mqtt_mainwindow_sub_claer_text();
+    void mqtt_mainwindow_pub_clear_text();
 };
 #endif // MAINWINDOW_H

@@ -217,6 +217,14 @@ void MainWindow::mqtt_mainwindow_sub_textedit_change_text()
 {
     ui->textEdit_mqtt_sub_text->moveCursor(QTextCursor::End);
 }
+void MainWindow::mqtt_mainwindow_sub_claer_text()
+{
+    ui->textEdit_mqtt_sub_text->clear();
+}
+void MainWindow::mqtt_mainwindow_pub_clear_text()
+{
+    ui->textEdit_mqtt_pub_text->clear();
+}
 void MainWindow::mqtt_mainwindow_init()
 {
     pub = new mqtt_pub(this);
@@ -237,6 +245,8 @@ void MainWindow::mqtt_mainwindow_init()
     connect(this, SIGNAL(mqtt_mainwindow_pub_publish_textchanged()), this, SLOT(mqtt_mainwindow_change_pub_publish_text()));
     connect(ui->textEdit_mqtt_pub_text, SIGNAL(textChanged()), this, SLOT(mqtt_mainwindow_pub_textedit_change_text()));
     connect(ui->textEdit_mqtt_sub_text, SIGNAL(textChanged()), this, SLOT(mqtt_mainwindow_sub_textedit_change_text()));
+    connect(ui->pushButton_mqtt_pub_clear, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_pub_clear_text()));
+    connect(ui->pushButton_mqtt_sub_clear, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_sub_claer_text()));
 
     ui->textEdit_mqtt_sub_text->setEnabled(false);
     ui->lineEdit_mqtt_sub_clientid->setEnabled(false);
