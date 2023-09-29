@@ -95,16 +95,19 @@ void MainWindow::mqtt_mainwindow_change_pub_connect_text()
     if (button_text == "Connect")
     {
         std::cout << "SystemDebug:Connect" << std::endl;
-        ui->lineEdit_mqtt_pub_clientid->setEnabled(false);
-        ui->lineEdit_mqtt_pub_host->setEnabled(false);
-        ui->lineEdit_mqtt_pub_ip->setEnabled(false);
-        ui->lineEdit_mqtt_pub_message->setEnabled(true);
-        ui->lineEdit_mqtt_pub_topic->setEnabled(true);
-        ui->comboBox_mqtt_pub_mode->setEnabled(true);
-        ui->comboBox_mqtt_pub_qos->setEnabled(true);
-        ui->pushButton_mqtt_pub_publish->setEnabled(true);
-        button_text = "Disconnect";
-        ui->pushButton_mqtt_pub_connect->setText(QString::fromStdString(button_text));
+        if (pub->mqtt_pub_thread_open())
+        {
+            ui->lineEdit_mqtt_pub_clientid->setEnabled(false);
+            ui->lineEdit_mqtt_pub_host->setEnabled(false);
+            ui->lineEdit_mqtt_pub_ip->setEnabled(false);
+            ui->lineEdit_mqtt_pub_message->setEnabled(true);
+            ui->lineEdit_mqtt_pub_topic->setEnabled(true);
+            ui->comboBox_mqtt_pub_mode->setEnabled(true);
+            ui->comboBox_mqtt_pub_qos->setEnabled(true);
+            ui->pushButton_mqtt_pub_publish->setEnabled(true);
+            button_text = "Disconnect";
+            ui->pushButton_mqtt_pub_connect->setText(QString::fromStdString(button_text));
+        }
     }
     else if (button_text == "Disconnect")
     {
@@ -153,6 +156,8 @@ void MainWindow::mqtt_mainwindow_init()
 {
     pub = new mqtt_pub(this);
     sub = new mqtt_sub(this);
+    mqtt_mainwindow_share_gui_pub();
+    mqtt_mainwindow_share_gui_sub();
     connect(ui->pushButton_mqtt_sub_opensub, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_open_sub()));
     connect(ui->pushButton_mqtt_pub_openpub, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_open_pub()));
     connect(this, SIGNAL(mqtt_mainwindow_open_sub_textchanged()), this, SLOT(mqtt_mainwindow_change_subtext()));
@@ -180,6 +185,7 @@ void MainWindow::mqtt_mainwindow_init()
     ui->pushButton_mqtt_pub_publish->setEnabled(false);
     ui->comboBox_mqtt_pub_qos->setEnabled(false);
     ui->comboBox_mqtt_pub_mode->setEnabled(false);
+
 }
 void MainWindow::mqtt_mainwindow_share_gui_sub()
 {
@@ -187,5 +193,13 @@ void MainWindow::mqtt_mainwindow_share_gui_sub()
 }
 void MainWindow::mqtt_mainwindow_share_gui_pub()
 {
-
+    pub->mainwindow_button_mqtt_pub_connect = ui->pushButton_mqtt_pub_connect;
+    pub->mainwindow_button_mqtt_pub_publish = ui->pushButton_mqtt_pub_publish;
+    pub->mainwindow_combox_mqtt_pub_mode = ui->comboBox_mqtt_pub_mode;
+    pub->mainwindow_combox_mqtt_pub_qos = ui->comboBox_mqtt_pub_qos;
+    pub->mainwindow_line_mqtt_pub_clientid = ui->lineEdit_mqtt_pub_clientid;
+    pub->mainwindow_line_mqtt_pub_host = ui->lineEdit_mqtt_pub_host;
+    pub->mainwindow_line_mqtt_pub_ip = ui->lineEdit_mqtt_pub_ip;
+    pub->mainwindow_line_mqtt_pub_message = ui->lineEdit_mqtt_pub_message;
+    pub->mainwindow_line_mqtt_pub_topic = ui->lineEdit_mqtt_pub_topic;
 }
