@@ -176,6 +176,7 @@ void MainWindow::mqtt_mainwindow_change_pub_publish_text()
     {
         if (pub->mqtt_pub_thread_publish())
         {
+            ui->textEdit_mqtt_pub_text->insertPlainText(QString::fromStdString(pub->pub_message + "\n"));
             std::cout << "publish successful" << std::endl;
         }
         else
@@ -187,6 +188,10 @@ void MainWindow::mqtt_mainwindow_change_pub_publish_text()
     {
 
     }
+}
+void MainWindow::mqtt_mainwindow_pub_textedit_change_text()
+{
+    ui->textEdit_mqtt_pub_text->moveCursor(QTextCursor::End);
 }
 void MainWindow::mqtt_mainwindow_init()
 {
@@ -206,6 +211,7 @@ void MainWindow::mqtt_mainwindow_init()
     connect(ui->pushButton_mqtt_pub_publish, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_pub_publish()));
     connect(this, SIGNAL(mqtt_mainwindow_sub_subscribe_textchanged()), this, SLOT(mqtt_mainwindow_change_sub_subscribe_text()));
     connect(this, SIGNAL(mqtt_mainwindow_pub_publish_textchanged()), this, SLOT(mqtt_mainwindow_change_pub_publish_text()));
+    connect(ui->textEdit_mqtt_pub_text, SIGNAL(textChanged()), this, SLOT(mqtt_mainwindow_pub_textedit_change_text()));
 
     ui->textEdit_mqtt_sub_text->setEnabled(false);
     ui->lineEdit_mqtt_sub_clientid->setEnabled(false);

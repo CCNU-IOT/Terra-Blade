@@ -24,7 +24,6 @@ private:
     std::string pub_clientid;
     int pub_qos;
     std::string pub_mode;
-    std::string pub_message;
     MQTTClient pub_client;
     MQTTClient_deliveryToken token;
     MQTTClient_message pubmsg;
@@ -33,6 +32,7 @@ private:
     int pub_rc;
     QTimer *pub_timer;
 public:
+    std::string pub_message;
     QLineEdit *mainwindow_line_mqtt_pub_ip;
     QLineEdit *mainwindow_line_mqtt_pub_host;
     QLineEdit *mainwindow_line_mqtt_pub_clientid;
