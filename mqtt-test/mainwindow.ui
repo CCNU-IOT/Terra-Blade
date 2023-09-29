@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>1080</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MQTT_V1.0</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTextEdit" name="textEdit_mqtt_sub_text">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>79</y>
+      <width>900</width>
+      <height>731</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::RightToLeft</enum>
+    </property>
+    <property name="text">
+     <string>Sub</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_mqtt_sub_subscribe">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>980</y>
+      <width>901</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Subscribe</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit_mqtt_pub_text">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>80</y>
+      <width>900</width>
+      <height>661</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>10</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>Pub</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_4">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>810</y>
+      <width>901</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>IP</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_pub_ip"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Host</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_pub_host"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_5">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>860</y>
+      <width>901</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="3,5">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>ClientID</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_pub_clientid"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_mqtt_pub_connect">
+       <property name="text">
+        <string>Connect</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget_6">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>920</y>
+      <width>901</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_14">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,8">
+       <item>
+        <widget class="QLabel" name="label_12">
+         <property name="text">
+          <string>Topic</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_pub_topic"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_16" stretch="1,4">
+       <item>
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>QoS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_mqtt_pub_qos">
+         <item>
+          <property name="text">
+           <string>QoS0</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>QoS1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>QoS2</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_mqtt_pub_publish">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>980</y>
+      <width>901</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Publish</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_mqtt_sub_opensub">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>10</y>
+      <width>171</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open SUB</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_mqtt_pub_openpub">
+    <property name="geometry">
+     <rect>
+      <x>1740</x>
+      <y>10</y>
+      <width>171</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Open PUB</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>810</y>
+      <width>901</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>IP</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_sub_ip"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Host</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_sub_host"/>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>868</y>
+      <width>901</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="3,5">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>ClientID</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_sub_clientid"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_mqtt_sub_connect">
+       <property name="text">
+        <string>Connect</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>928</y>
+      <width>901</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,8">
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Topic</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_mqtt_sub_topic"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="1,4">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>QoS</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="comboBox_mqtt_sub_qos">
+         <item>
+          <property name="text">
+           <string>QoS0</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>QoS1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>QoS2</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>746</y>
+      <width>901</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_17" stretch="1,6,2">
+     <item>
+      <widget class="QLabel" name="label_14">
+       <property name="text">
+        <string>Message</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_mqtt_pub_message"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_mqtt_pub_mode">
+       <item>
+        <property name="text">
+         <string>single send</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>send once 0.1s</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>send once 1s</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>send once 10s</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
