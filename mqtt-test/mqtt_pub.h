@@ -9,6 +9,8 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <MQTTClient.h>
+#include <QTimer>
+
 class mqtt_pub : public QObject
 {
     Q_OBJECT
@@ -20,11 +22,16 @@ private:
     std::string pub_ip;
     std::string pub_host;
     std::string pub_clientid;
-    std::string pub_qos;
+    int pub_qos;
     std::string pub_mode;
     std::string pub_message;
     MQTTClient pub_client;
+    MQTTClient_deliveryToken token;
+    MQTTClient_message pubmsg;
+    MQTTClient_connectOptions conn_opts;
+    long int pub_timeout;
     int pub_rc;
+    QTimer *pub_timer;
 public:
     QLineEdit *mainwindow_line_mqtt_pub_ip;
     QLineEdit *mainwindow_line_mqtt_pub_host;
@@ -36,9 +43,15 @@ public:
     QComboBox *mainwindow_combox_mqtt_pub_mode;
     QComboBox *mainwindow_combox_mqtt_pub_qos;
 public:
-    bool mqtt_pub_thread_open();
-    void mqtt_pub_thread_close();
-    void mqtt_pub_thread_run();
+    bool mqtt_pub_thread_connect();
+    bool mqtt_pub_thread_disconnect();
+    bool mqtt_pub_thread_publish();
+    bool mqtt_pub_thread_closepublish();
+private:
+    bool mqtt_pub_thread_signal_send();
+    bool mqtt_pub_thread_send_once_0_1s();
+    bool mqtt_pub_thread_send_once_1s();
+    bool mqtt_pub_thread_send_once_10s();
 signals:
 private slots:
 

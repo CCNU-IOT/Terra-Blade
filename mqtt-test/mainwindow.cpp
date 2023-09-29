@@ -95,11 +95,12 @@ void MainWindow::mqtt_mainwindow_change_pub_connect_text()
     if (button_text == "Connect")
     {
         std::cout << "SystemDebug:Connect" << std::endl;
-        if (pub->mqtt_pub_thread_open())
+        if (pub->mqtt_pub_thread_connect())
         {
             ui->lineEdit_mqtt_pub_clientid->setEnabled(false);
             ui->lineEdit_mqtt_pub_host->setEnabled(false);
             ui->lineEdit_mqtt_pub_ip->setEnabled(false);
+            ui->pushButton_mqtt_pub_openpub->setEnabled(false);
             ui->lineEdit_mqtt_pub_message->setEnabled(true);
             ui->lineEdit_mqtt_pub_topic->setEnabled(true);
             ui->comboBox_mqtt_pub_mode->setEnabled(true);
@@ -112,16 +113,20 @@ void MainWindow::mqtt_mainwindow_change_pub_connect_text()
     else if (button_text == "Disconnect")
     {
         std::cout << "SystemDebug:Disconnect" << std::endl;
-        ui->lineEdit_mqtt_pub_clientid->setEnabled(true);
-        ui->lineEdit_mqtt_pub_host->setEnabled(true);
-        ui->lineEdit_mqtt_pub_ip->setEnabled(true);
-        ui->lineEdit_mqtt_pub_message->setEnabled(false);
-        ui->lineEdit_mqtt_pub_topic->setEnabled(false);
-        ui->comboBox_mqtt_pub_mode->setEnabled(false);
-        ui->comboBox_mqtt_pub_qos->setEnabled(false);
-        ui->pushButton_mqtt_pub_publish->setEnabled(false);
-        button_text = "Connect";
-        ui->pushButton_mqtt_pub_connect->setText(QString::fromStdString(button_text));
+        if (pub->mqtt_pub_thread_disconnect())
+        {
+            ui->lineEdit_mqtt_pub_clientid->setEnabled(true);
+            ui->lineEdit_mqtt_pub_host->setEnabled(true);
+            ui->lineEdit_mqtt_pub_ip->setEnabled(true);
+            ui->pushButton_mqtt_pub_openpub->setEnabled(true);
+            ui->lineEdit_mqtt_pub_message->setEnabled(false);
+            ui->lineEdit_mqtt_pub_topic->setEnabled(false);
+            ui->comboBox_mqtt_pub_mode->setEnabled(false);
+            ui->comboBox_mqtt_pub_qos->setEnabled(false);
+            ui->pushButton_mqtt_pub_publish->setEnabled(false);
+            button_text = "Connect";
+            ui->pushButton_mqtt_pub_connect->setText(QString::fromStdString(button_text));
+        }
     }
 }
 void MainWindow::mqtt_mainwindow_change_sub_connect_text()
@@ -152,6 +157,37 @@ void MainWindow::mqtt_mainwindow_change_sub_connect_text()
         ui->pushButton_mqtt_sub_connect->setText(QString::fromStdString(button_text));
     }
 }
+void MainWindow::mqtt_mainwindow_sub_subscribe()
+{
+    emit mqtt_mainwindow_sub_subscribe_textchanged();
+}
+void MainWindow::mqtt_mainwindow_pub_publish()
+{
+    emit mqtt_mainwindow_pub_publish_textchanged();
+}
+void MainWindow::mqtt_mainwindow_change_sub_subscribe_text()
+{
+    std::string button_text = ui->pushButton_mqtt_sub_subscribe->text().toStdString();
+}
+void MainWindow::mqtt_mainwindow_change_pub_publish_text()
+{
+    std::string button_text = ui->pushButton_mqtt_pub_publish->text().toStdString();
+    if (button_text == "Publish")
+    {
+        if (pub->mqtt_pub_thread_publish())
+        {
+            std::cout << "publish successful" << std::endl;
+        }
+        else
+        {
+            std::cout << "publish failure" << std::endl;
+        }
+    }
+    else if (button_text == "Close publish")
+    {
+
+    }
+}
 void MainWindow::mqtt_mainwindow_init()
 {
     pub = new mqtt_pub(this);
@@ -166,6 +202,11 @@ void MainWindow::mqtt_mainwindow_init()
     connect(ui->pushButton_mqtt_pub_connect, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_pub_connect()));
     connect(this, SIGNAL(mqtt_mainwindow_sub_connect_textchanged()), this, SLOT(mqtt_mainwindow_change_sub_connect_text()));
     connect(this, SIGNAL(mqtt_mainwindow_pub_connect_textchanged()), this, SLOT(mqtt_mainwindow_change_pub_connect_text()));
+    connect(ui->pushButton_mqtt_sub_subscribe, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_sub_subscribe()));
+    connect(ui->pushButton_mqtt_pub_publish, SIGNAL(clicked()), this, SLOT(mqtt_mainwindow_pub_publish()));
+    connect(this, SIGNAL(mqtt_mainwindow_sub_subscribe_textchanged()), this, SLOT(mqtt_mainwindow_change_sub_subscribe_text()));
+    connect(this, SIGNAL(mqtt_mainwindow_pub_publish_textchanged()), this, SLOT(mqtt_mainwindow_change_pub_publish_text()));
+
     ui->textEdit_mqtt_sub_text->setEnabled(false);
     ui->lineEdit_mqtt_sub_clientid->setEnabled(false);
     ui->lineEdit_mqtt_sub_ip->setEnabled(false);

@@ -29,6 +29,8 @@ signals:
     void mqtt_mainwindow_open_pub_textchanged();
     void mqtt_mainwindow_sub_connect_textchanged();
     void mqtt_mainwindow_pub_connect_textchanged();
+    void mqtt_mainwindow_sub_subscribe_textchanged();
+    void mqtt_mainwindow_pub_publish_textchanged();
 public slots:
     void mqtt_mainwindow_open_sub();
     void mqtt_mainwindow_open_pub();
@@ -38,5 +40,9 @@ public slots:
     void mqtt_mainwindow_pub_connect();
     void mqtt_mainwindow_change_sub_connect_text();
     void mqtt_mainwindow_change_pub_connect_text();
+    void mqtt_mainwindow_sub_subscribe();
+    void mqtt_mainwindow_pub_publish();
+    void mqtt_mainwindow_change_sub_subscribe_text();
+    void mqtt_mainwindow_change_pub_publish_text();
 };
 #endif // MAINWINDOW_H
