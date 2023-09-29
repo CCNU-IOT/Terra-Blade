@@ -31,6 +31,7 @@ private:
     long int pub_timeout;
     int pub_rc;
     QTimer *pub_timer;
+    std::mutex my_lock;
 public:
     std::string pub_message;
     QLineEdit *mainwindow_line_mqtt_pub_ip;
@@ -42,16 +43,14 @@ public:
     QPushButton *mainwindow_button_mqtt_pub_publish;
     QComboBox *mainwindow_combox_mqtt_pub_mode;
     QComboBox *mainwindow_combox_mqtt_pub_qos;
+    QTextEdit *mainwindow_tedit_mqtt_pub_text;
 public:
     bool mqtt_pub_thread_connect();
     bool mqtt_pub_thread_disconnect();
     bool mqtt_pub_thread_publish();
-    bool mqtt_pub_thread_closepublish();
+    void mqtt_pub_thread_closepublish();
 private:
-    bool mqtt_pub_thread_signal_send();
-    bool mqtt_pub_thread_send_once_0_1s();
-    bool mqtt_pub_thread_send_once_1s();
-    bool mqtt_pub_thread_send_once_10s();
+    void mqtt_pub_thread_signal_send();
 signals:
 private slots:
 

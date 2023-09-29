@@ -52,31 +52,66 @@ bool mqtt_pub::mqtt_pub_thread_publish()
     pub_message = mainwindow_line_mqtt_pub_message->text().toStdString();
     if (pub_message.empty())
     {
-        return false;
+        return false;//pub message empty
     }
-    if (pub_mode == "single send")
+    else
     {
-        return mqtt_pub_thread_signal_send();
-    }
-    else if (pub_mode == "send once 0.1s")
-    {
-        return mqtt_pub_thread_send_once_0_1s();
-    }
-    else if (pub_mode == "send once 1s")
-    {
-        return mqtt_pub_thread_send_once_1s();
-    }
-    else if (pub_mode == "send once 10s")
-    {
-        return mqtt_pub_thread_send_once_10s();
+        if (pub_mode == "single send")
+        {
+            mqtt_pub_thread_signal_send();
+        }
+        else if (pub_mode == "send once 0.1s")
+        {
+            mainwindow_button_mqtt_pub_publish->setText(QString::fromStdString("Close publish"));
+            mainwindow_line_mqtt_pub_topic->setEnabled(false);
+            mainwindow_line_mqtt_pub_message->setEnabled(false);
+            mainwindow_combox_mqtt_pub_mode->setEnabled(false);
+            mainwindow_combox_mqtt_pub_qos->setEnabled(false);
+            pub_timer = new QTimer(this);
+            connect(pub_timer, &QTimer::timeout, this, QOverload<>::of(&mqtt_pub::mqtt_pub_thread_signal_send));
+            pub_timer->start(100);//0.1s
+        }
+        else if (pub_mode == "send once 1s")
+        {
+            mainwindow_button_mqtt_pub_publish->setText(QString::fromStdString("Close publish"));
+            mainwindow_line_mqtt_pub_topic->setEnabled(false);
+            mainwindow_line_mqtt_pub_message->setEnabled(false);
+            mainwindow_combox_mqtt_pub_mode->setEnabled(false);
+            mainwindow_combox_mqtt_pub_qos->setEnabled(false);
+            pub_timer = new QTimer(this);
+            connect(pub_timer, &QTimer::timeout, this, QOverload<>::of(&mqtt_pub::mqtt_pub_thread_signal_send));
+            pub_timer->start(1000);//1s
+        }
+        else if (pub_mode == "send once 10s")
+        {
+            mainwindow_button_mqtt_pub_publish->setText(QString::fromStdString("Close publish"));
+            mainwindow_line_mqtt_pub_topic->setEnabled(false);
+            mainwindow_line_mqtt_pub_message->setEnabled(false);
+            mainwindow_combox_mqtt_pub_mode->setEnabled(false);
+            mainwindow_combox_mqtt_pub_qos->setEnabled(false);
+            pub_timer = new QTimer(this);
+            connect(pub_timer, &QTimer::timeout, this, QOverload<>::of(&mqtt_pub::mqtt_pub_thread_signal_send));
+            pub_timer->start(10000);//10s
+        }
+        return true;//pub message no empty
     }
 }
-bool mqtt_pub::mqtt_pub_thread_closepublish()
+void mqtt_pub::mqtt_pub_thread_closepublish()
 {
-
+    if (pub_timer->isActive())
+    {
+        pub_timer->stop();
+    }
+    mainwindow_line_mqtt_pub_topic->setEnabled(true);
+    mainwindow_line_mqtt_pub_message->setEnabled(true);
+    mainwindow_combox_mqtt_pub_mode->setEnabled(true);
+    mainwindow_combox_mqtt_pub_qos->setEnabled(true);
+    mainwindow_button_mqtt_pub_publish->setText("Publish");
+    delete pub_timer;
 }
-bool mqtt_pub::mqtt_pub_thread_signal_send()
+void mqtt_pub::mqtt_pub_thread_signal_send()
 {
+    std::lock_guard<std::mutex> my_lock_guard(my_lock);
     pubmsg.payload = (void *)pub_message.c_str();
     pubmsg.payloadlen = pub_message.length();
     pubmsg.qos = pub_qos;
@@ -84,21 +119,8 @@ bool mqtt_pub::mqtt_pub_thread_signal_send()
     if ((pub_rc = MQTTClient_publishMessage(pub_client, pub_topic.c_str(), &pubmsg, &token)) != MQTTCLIENT_SUCCESS)
     {
         std::cout << "Failed to publish message, return code " << pub_rc << std::endl;
-        return false;
     }
+    mainwindow_tedit_mqtt_pub_text->insertPlainText(QString::fromStdString(pub_message + "\n"));//print
     pub_rc = MQTTClient_waitForCompletion(pub_client, token, pub_timeout);
     std::cout << "Message with delivery token " << token << " delivered." << std::endl;
-    return true;
-}
-bool mqtt_pub::mqtt_pub_thread_send_once_0_1s()
-{
-
-}
-bool mqtt_pub::mqtt_pub_thread_send_once_1s()
-{
-
-}
-bool mqtt_pub::mqtt_pub_thread_send_once_10s()
-{
-
 }

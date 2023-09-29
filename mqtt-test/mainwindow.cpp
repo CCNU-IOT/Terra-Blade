@@ -176,17 +176,17 @@ void MainWindow::mqtt_mainwindow_change_pub_publish_text()
     {
         if (pub->mqtt_pub_thread_publish())
         {
-            ui->textEdit_mqtt_pub_text->insertPlainText(QString::fromStdString(pub->pub_message + "\n"));
             std::cout << "publish successful" << std::endl;
         }
         else
         {
-            std::cout << "publish failure" << std::endl;
+            std::cout << "publish message no-allow empty" << std::endl;
         }
     }
     else if (button_text == "Close publish")
     {
-
+        pub->mqtt_pub_thread_closepublish();
+        std::cout << "Close publish" << std::endl;
     }
 }
 void MainWindow::mqtt_mainwindow_pub_textedit_change_text()
@@ -249,4 +249,5 @@ void MainWindow::mqtt_mainwindow_share_gui_pub()
     pub->mainwindow_line_mqtt_pub_ip = ui->lineEdit_mqtt_pub_ip;
     pub->mainwindow_line_mqtt_pub_message = ui->lineEdit_mqtt_pub_message;
     pub->mainwindow_line_mqtt_pub_topic = ui->lineEdit_mqtt_pub_topic;
+    pub->mainwindow_tedit_mqtt_pub_text = ui->textEdit_mqtt_pub_text;
 }
