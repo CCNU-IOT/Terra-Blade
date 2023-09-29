@@ -176,11 +176,17 @@ void MainWindow::mqtt_mainwindow_change_sub_subscribe_text()
     std::string button_text = ui->pushButton_mqtt_sub_subscribe->text().toStdString();
     if (button_text == "Subscribe")
     {
-
+        sub->mqtt_sub_thread_subscribe();
+        button_text = "Close Subscribe";
+        ui->pushButton_mqtt_sub_subscribe->setText(QString::fromStdString(button_text));
+        std::cout << "Subscribe" << std::endl;
     }
     else if (button_text == "Close Subscribe")
     {
-
+        sub->mqtt_sub_thread_closesubscribe();
+        button_text = "Subscribe";
+        ui->pushButton_mqtt_sub_subscribe->setText(QString::fromStdString(button_text));
+        std::cout << "Close Subscribe" << std::endl;
     }
 }
 void MainWindow::mqtt_mainwindow_change_pub_publish_text()
@@ -230,6 +236,7 @@ void MainWindow::mqtt_mainwindow_init()
     connect(this, SIGNAL(mqtt_mainwindow_sub_subscribe_textchanged()), this, SLOT(mqtt_mainwindow_change_sub_subscribe_text()));
     connect(this, SIGNAL(mqtt_mainwindow_pub_publish_textchanged()), this, SLOT(mqtt_mainwindow_change_pub_publish_text()));
     connect(ui->textEdit_mqtt_pub_text, SIGNAL(textChanged()), this, SLOT(mqtt_mainwindow_pub_textedit_change_text()));
+    connect(ui->textEdit_mqtt_sub_text, SIGNAL(textChanged()), this, SLOT(mqtt_mainwindow_sub_textedit_change_text()));
 
     ui->textEdit_mqtt_sub_text->setEnabled(false);
     ui->lineEdit_mqtt_sub_clientid->setEnabled(false);
@@ -261,6 +268,7 @@ void MainWindow::mqtt_mainwindow_share_gui_sub()
     sub->mainwindow_line_mqtt_sub_ip = ui->lineEdit_mqtt_sub_ip;
     sub->mainwindow_line_mqtt_sub_topic = ui->lineEdit_mqtt_sub_topic;
     sub->mainwindow_combox_mqtt_sub_qos = ui->comboBox_mqtt_sub_qos;
+    sub->mainwindow_tedit_mqtt_sub_text = ui->textEdit_mqtt_sub_text;
 }
 void MainWindow::mqtt_mainwindow_share_gui_pub()
 {
