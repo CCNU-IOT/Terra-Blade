@@ -94,9 +94,9 @@ void MainWindow::mqtt_mainwindow_change_pub_connect_text()
     std::string button_text = ui->pushButton_mqtt_pub_connect->text().toStdString();
     if (button_text == "Connect")
     {
-        std::cout << "SystemDebug:Connect" << std::endl;
         if (pub->mqtt_pub_thread_connect())
         {
+            std::cout << "SystemDebug:Connect" << std::endl;
             ui->lineEdit_mqtt_pub_clientid->setEnabled(false);
             ui->lineEdit_mqtt_pub_host->setEnabled(false);
             ui->lineEdit_mqtt_pub_ip->setEnabled(false);
@@ -112,9 +112,9 @@ void MainWindow::mqtt_mainwindow_change_pub_connect_text()
     }
     else if (button_text == "Disconnect")
     {
-        std::cout << "SystemDebug:Disconnect" << std::endl;
         if (pub->mqtt_pub_thread_disconnect())
         {
+            std::cout << "SystemDebug:Disconnect" << std::endl;
             ui->lineEdit_mqtt_pub_clientid->setEnabled(true);
             ui->lineEdit_mqtt_pub_host->setEnabled(true);
             ui->lineEdit_mqtt_pub_ip->setEnabled(true);
@@ -134,27 +134,33 @@ void MainWindow::mqtt_mainwindow_change_sub_connect_text()
     std::string button_text = ui->pushButton_mqtt_sub_connect->text().toStdString();
     if (button_text == "Connect")
     {
-        std::cout << "SystemDebug:Connect" << std::endl;
-        ui->lineEdit_mqtt_sub_clientid->setEnabled(false);
-        ui->lineEdit_mqtt_sub_host->setEnabled(false);
-        ui->lineEdit_mqtt_sub_ip->setEnabled(false);
-        ui->lineEdit_mqtt_sub_topic->setEnabled(true);
-        ui->comboBox_mqtt_sub_qos->setEnabled(true);
-        ui->pushButton_mqtt_sub_subscribe->setEnabled(true);
-        button_text = "Disconnect";
-        ui->pushButton_mqtt_sub_connect->setText(QString::fromStdString(button_text));
+        if (sub->mqtt_sub_thread_connect())
+        {
+            std::cout << "SystemDebug:Connect" << std::endl;
+            ui->lineEdit_mqtt_sub_clientid->setEnabled(false);
+            ui->lineEdit_mqtt_sub_host->setEnabled(false);
+            ui->lineEdit_mqtt_sub_ip->setEnabled(false);
+            ui->lineEdit_mqtt_sub_topic->setEnabled(true);
+            ui->comboBox_mqtt_sub_qos->setEnabled(true);
+            ui->pushButton_mqtt_sub_subscribe->setEnabled(true);
+            button_text = "Disconnect";
+            ui->pushButton_mqtt_sub_connect->setText(QString::fromStdString(button_text));
+        }
     }
     else if (button_text == "Disconnect")
     {
-        std::cout << "SystemDebug:Disconnect" << std::endl;
-        ui->lineEdit_mqtt_sub_clientid->setEnabled(true);
-        ui->lineEdit_mqtt_sub_host->setEnabled(true);
-        ui->lineEdit_mqtt_sub_ip->setEnabled(true);
-        ui->lineEdit_mqtt_sub_topic->setEnabled(false);
-        ui->comboBox_mqtt_sub_qos->setEnabled(false);
-        ui->pushButton_mqtt_sub_subscribe->setEnabled(false);
-        button_text = "Connect";
-        ui->pushButton_mqtt_sub_connect->setText(QString::fromStdString(button_text));
+        if (sub->mqtt_sub_thread_disconnect())
+        {
+            std::cout << "SystemDebug:Disconnect" << std::endl;
+            ui->lineEdit_mqtt_sub_clientid->setEnabled(true);
+            ui->lineEdit_mqtt_sub_host->setEnabled(true);
+            ui->lineEdit_mqtt_sub_ip->setEnabled(true);
+            ui->lineEdit_mqtt_sub_topic->setEnabled(false);
+            ui->comboBox_mqtt_sub_qos->setEnabled(false);
+            ui->pushButton_mqtt_sub_subscribe->setEnabled(false);
+            button_text = "Connect";
+            ui->pushButton_mqtt_sub_connect->setText(QString::fromStdString(button_text));
+        }
     }
 }
 void MainWindow::mqtt_mainwindow_sub_subscribe()
@@ -168,6 +174,14 @@ void MainWindow::mqtt_mainwindow_pub_publish()
 void MainWindow::mqtt_mainwindow_change_sub_subscribe_text()
 {
     std::string button_text = ui->pushButton_mqtt_sub_subscribe->text().toStdString();
+    if (button_text == "Subscribe")
+    {
+
+    }
+    else if (button_text == "Close Subscribe")
+    {
+
+    }
 }
 void MainWindow::mqtt_mainwindow_change_pub_publish_text()
 {
@@ -192,6 +206,10 @@ void MainWindow::mqtt_mainwindow_change_pub_publish_text()
 void MainWindow::mqtt_mainwindow_pub_textedit_change_text()
 {
     ui->textEdit_mqtt_pub_text->moveCursor(QTextCursor::End);
+}
+void MainWindow::mqtt_mainwindow_sub_textedit_change_text()
+{
+    ui->textEdit_mqtt_sub_text->moveCursor(QTextCursor::End);
 }
 void MainWindow::mqtt_mainwindow_init()
 {
@@ -236,7 +254,13 @@ void MainWindow::mqtt_mainwindow_init()
 }
 void MainWindow::mqtt_mainwindow_share_gui_sub()
 {
-
+    sub->mainwindow_button_mqtt_sub_connect = ui->pushButton_mqtt_sub_connect;
+    sub->mainwindow_button_mqtt_sub_subscribe = ui->pushButton_mqtt_sub_subscribe;
+    sub->mainwindow_line_mqtt_sub_clientid = ui->lineEdit_mqtt_sub_clientid;
+    sub->mainwindow_line_mqtt_sub_host = ui->lineEdit_mqtt_sub_host;
+    sub->mainwindow_line_mqtt_sub_ip = ui->lineEdit_mqtt_sub_ip;
+    sub->mainwindow_line_mqtt_sub_topic = ui->lineEdit_mqtt_sub_topic;
+    sub->mainwindow_combox_mqtt_sub_qos = ui->comboBox_mqtt_sub_qos;
 }
 void MainWindow::mqtt_mainwindow_share_gui_pub()
 {
